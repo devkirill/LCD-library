@@ -15,8 +15,3 @@ Nokia5110::Nokia5110(
 {
 
 };
-
-void Nokia5110::DWrite(uint8_t pin, bool value)
-{
-	digitalWrite(pin, value);
-}
