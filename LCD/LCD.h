@@ -1,15 +1,15 @@
 #ifndef LCD_h
 #define LCD_h
 
-class LCD
+class TDisplay
 {
 private:
-	uint8_t Width;
-	uint8_t Height;
-	virtual bool Paint(uint8_t x, uint8_t y) = 0;
+	uint8_t width_;
+	uint8_t height_;
+	virtual bool paint(uint8_t x, uint8_t y) = 0;
 public:
-	LCD(uint8_t width, uint8_t height);
-	virtual void Repaint() = 0;
+	TDisplay(uint8_t width, uint8_t height);
+	virtual void repaint() = 0;
 };
 
 #endif

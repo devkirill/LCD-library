@@ -1,6 +1,6 @@
-LCD::LCD(uint8_t width, uint8_t height)
-	: Width(width)
-	, Height(height)
+TDisplay::TDisplay(uint8_t width, uint8_t height)
+	: width_(width)
+	, height_(height)
 {
 
 }
