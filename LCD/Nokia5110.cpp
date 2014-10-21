@@ -6,12 +6,17 @@ Nokia5110::Nokia5110(
 	uint8_t RESET,
 	uint8_t LED
 )
-	: _SCLK(SCLK)
-	, _SDIN(SDIN)
-	, _DC(DC)
-	, _SCE(SCE)
-	, _RESET(RESET)
-	, _LED(LED)
+	: SCLK_(SCLK)
+	, SDIN_(SDIN)
+	, DC_(DC)
+	, SCE_(SCE)
+	, RESET_(RESET)
+	, LED_(LED)
 {
 
 };
+
+void Nokia5110::DWrite(uint8_t pin, bool value)
+{
+	digitalWrite(pin, value);
+}
