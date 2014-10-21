@@ -12,7 +12,6 @@ private:
 	uint8_t LED_;
 
 	bool paint(uint8_t x, uint8_t y);
-	void writeData(uint8_t, uint8_t);
 	size_t write(uint8_t);
 public:
 	bool invertColor;
