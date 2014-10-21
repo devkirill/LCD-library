@@ -37,7 +37,21 @@ bool TNokia5110::paint(uint8_t x, uint8_t y)
 
 void TNokia5110::repaint()
 {
-
+	for (uint8_t i = 0; i * 8 < height_; i++)
+	{
+		for (uint8_t j = 0; j < width_; j++)
+		{
+			uint8_t t = 0;
+			for (uint8_t k = 0; k < 8; k++)
+			{
+				uint8_t x = j;
+				uint8_t y = j * 8 + k;
+				t *= 2;
+				t += paint(x, y) ? 1 : 0;
+			}
+			writeData(t);
+		}
+	}
 }
 
 void TNokia5110::begin()
