@@ -1,15 +1,15 @@
-#ifndef Display_h
-#define Display_h
+#ifndef LCD_h
+#define LCD_h
 
-class Display<Type>
+class LCD
 {
 private:
-	Type Width;
-	Type Height;
-	virtual void Repaint() = 0;
-	virtual bool Paint(Type x, Type y) = 0;
+	uint8_t Width;
+	uint8_t Height;
+	virtual bool Paint(uint8_t x, uint8_t y) = 0;
 public:
-	Display(Type width, Type height);
+	LCD(uint8_t width, uint8_t height);
+	virtual void Repaint() = 0;
 };
 
 #endif
