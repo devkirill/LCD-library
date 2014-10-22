@@ -11,7 +11,7 @@ private:
 	uint8_t RESET_;
 	uint8_t LED_;
 
-	bool paint(uint8_t x, uint8_t y);
+	virtual bool paint(uint8_t x, uint8_t y) = 0;
 	void writeData(uint8_t, uint8_t);
 public:
 	bool invertColor;

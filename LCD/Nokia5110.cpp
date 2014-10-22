@@ -30,11 +30,6 @@ void TNokia5110::writeData(byte dc, byte data)
 	digitalWrite(PIN_SCE, HIGH);
 }
 
-bool TNokia5110::paint(uint8_t x, uint8_t y)
-{
-
-}
-
 void TNokia5110::repaint()
 {
 	for (uint8_t i = 0; i * 8 < height_; i++)
