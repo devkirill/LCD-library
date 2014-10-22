@@ -44,7 +44,7 @@ void TNokia5110::repaint()
 				t *= 2;
 				t += paint(x, y) ? 1 : 0;
 			}
-			writeData(t);
+			writeData(HIGH, t);
 		}
 	}
 }
