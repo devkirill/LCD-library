@@ -14,37 +14,45 @@ TNokia5110::TNokia5110(
 	, SCE_(SCE)
 	, RESET_(RESET)
 	, LED_(LED)
-	, invertColor(1)
-	, TDisplay(80, 24)
+	, invertColor(0)
+	, TDisplay(84, 48)
 {
 
 };
 
-void TNokia5110::writeData(byte dc, byte data)
+bool TNokia5110::paint(uint8_t x, uint8_t y)
+{
+	return false;
+}
+
+void TNokia5110::writeData(uint8_t dc, uint8_t data)
 {
 	if (dc == HIGH && invertColor)
 		data = ~data;
-	digitalWrite(PIN_DC, dc);
-	digitalWrite(PIN_SCE, LOW);
-	shiftOut(PIN_SDIN, PIN_SCLK, MSBFIRST, data);
-	digitalWrite(PIN_SCE, HIGH);
+	digitalWrite(DC_, dc);
+	digitalWrite(SCE_, LOW);
+	shiftOut(SDIN_, SCLK_, MSBFIRST, data);
+	digitalWrite(SCE_, HIGH);
+}
+
+uint8_t TNokia5110::paintCell(uint8_t x, uint8_t y)
+{
+	uint8_t res = 0;
+	for (uint8_t k = 7; k < 8; k--)
+	{
+		res *= 2;
+		res += paint(x, y * 8 + k) ? 1 : 0;
+	}
+	return res;
 }
 
 void TNokia5110::repaint()
 {
-	for (uint8_t i = 0; i * 8 < height_; i++)
+	for (uint8_t y = 0; y * 8 < height_; y++)
 	{
-		for (uint8_t j = 0; j < width_; j++)
+		for (uint8_t x = 0; x < width_; x++)
 		{
-			uint8_t t = 0;
-			for (uint8_t k = 0; k < 8; k++)
-			{
-				uint8_t x = j;
-				uint8_t y = j * 8 + k;
-				t *= 2;
-				t += paint(x, y) ? 1 : 0;
-			}
-			writeData(HIGH, t);
+			writeData(HIGH, paintCell(x, y));
 		}
 	}
 }
@@ -60,11 +68,9 @@ void TNokia5110::begin()
 	digitalWrite(LED_, HIGH);
 	digitalWrite(RESET_, LOW);
 	digitalWrite(RESET_, HIGH);
-	writeData(LOW, 0x21);  // LCD Extended Commands.
-	writeData(LOW, 0xB1);  // Set LCD Vop (Contrast). 
-	writeData(LOW, 0x04);  // Set Temp coefficent. //0x04
-	writeData(LOW, 0x14);  // LCD bias mode 1:48. //0x13
-	writeData(LOW, 0x0C);  // LCD in normal mode.
-	writeData(LOW, 0x20);
-	writeData(LOW, 0x0C);
+	writeData(LOW, 0x20 | 0x01);  // LCD Extended Commands.
+	writeData(LOW, 0x10 | 0x04);  // LCD bias mode 1:48. //0x13 0x14
+	writeData(LOW, 0x80 | 0x00);  // Set LCD Vop (Contrast). 
+	writeData(LOW, 0x20);         // normal mode
+	writeData(LOW, 0x08 | 0x04);  // Set display to Normal
 }

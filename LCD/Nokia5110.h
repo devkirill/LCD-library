@@ -1,7 +1,10 @@
 #ifndef nokia5110_h
 #define nokia5110_h
 
-class TNokia5110 : TDisplay
+#include "Display.h"
+#include "arduino.h"
+
+class TNokia5110 : public TDisplay
 {
 private:
 	uint8_t SCLK_;
@@ -11,8 +14,10 @@ private:
 	uint8_t RESET_;
 	uint8_t LED_;
 
-	virtual bool paint(uint8_t x, uint8_t y) = 0;
 	void writeData(uint8_t, uint8_t);
+protected:
+	virtual bool paint(uint8_t x, uint8_t y);
+	virtual uint8_t paintCell(uint8_t x, uint8_t y);
 public:
 	bool invertColor;
 
