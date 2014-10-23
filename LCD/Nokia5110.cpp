@@ -70,7 +70,7 @@ void TNokia5110::begin()
 	digitalWrite(RESET_, HIGH);
 	writeData(LOW, 0x20 | 0x01);  // LCD Extended Commands.
 	writeData(LOW, 0x10 | 0x04);  // LCD bias mode 1:48. //0x13 0x14
-	writeData(LOW, 0x80 | 0x00);  // Set LCD Vop (Contrast). 
+	writeData(LOW, 0x80 | 0x00);  // Set LCD Vop (Contrast). / Shift
 	writeData(LOW, 0x20);         // normal mode
 	writeData(LOW, 0x08 | 0x04);  // Set display to Normal
 }
