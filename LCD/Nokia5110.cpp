@@ -20,11 +20,19 @@ TNokia5110::TNokia5110(
 
 };
 
-void TNokia5110::writeData(uint8_t dc, uint8_t data)
+void TNokia5110::command(uint8_t data)
 {
-	if (dc == HIGH && invertColor)
+	digitalWrite(DC_, LOW);
+	digitalWrite(SCE_, LOW);
+	shiftOut(SDIN_, SCLK_, MSBFIRST, data);
+	digitalWrite(SCE_, HIGH);
+}
+
+void TNokia5110::writeByte(uint8_t data)
+{
+	if (invertColor)
 		data = ~data;
-	digitalWrite(DC_, dc);
+	digitalWrite(DC_, HIGH);
 	digitalWrite(SCE_, LOW);
 	shiftOut(SDIN_, SCLK_, MSBFIRST, data);
 	digitalWrite(SCE_, HIGH);
@@ -52,7 +60,7 @@ void TNokia5110::repaint()
 	{
 		for (uint8_t x = 0; x < width_; x++)
 		{
-			writeData(HIGH, paintCell(x, y));
+			writeByte(paintCell(x, y));
 		}
 	}
 }
@@ -68,9 +76,9 @@ void TNokia5110::begin()
 	digitalWrite(LED_, HIGH);
 	digitalWrite(RESET_, LOW);
 	digitalWrite(RESET_, HIGH);
-	writeData(LOW, 0x20 | 0x01);  // LCD Extended Commands.
-	writeData(LOW, 0x10 | 0x04);  // LCD bias mode 1:48. //0x13 0x14
-	writeData(LOW, 0x80 | 0x00);  // Set LCD Vop (Contrast). / Shift
-	writeData(LOW, 0x20);         // normal mode
-	writeData(LOW, 0x08 | 0x04);  // Set display to Normal
+	command(0x20 | 0x01);  // LCD Extended Commands.
+	command(0x80 | 0x00);  // Set LCD Vop (Contrast).
+	command(0x10 | 0x04);  // LCD bias mode 1:48. //0x13 0x14
+	command(0x20);         // normal mode
+	command(0x08 | 0x04);  // Set display to Normal
 }
