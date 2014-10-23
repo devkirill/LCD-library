@@ -20,11 +20,6 @@ TNokia5110::TNokia5110(
 
 };
 
-bool TNokia5110::paint(uint8_t x, uint8_t y)
-{
-	return false;
-}
-
 void TNokia5110::writeData(uint8_t dc, uint8_t data)
 {
 	if (dc == HIGH && invertColor)
@@ -33,6 +28,11 @@ void TNokia5110::writeData(uint8_t dc, uint8_t data)
 	digitalWrite(SCE_, LOW);
 	shiftOut(SDIN_, SCLK_, MSBFIRST, data);
 	digitalWrite(SCE_, HIGH);
+}
+
+bool TNokia5110::paint(uint8_t x, uint8_t y)
+{
+	return false;
 }
 
 uint8_t TNokia5110::paintCell(uint8_t x, uint8_t y)
