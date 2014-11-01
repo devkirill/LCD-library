@@ -27,13 +27,8 @@ protected:
 			return invertColor;
 		if (X % sizeCell == 0 || Y % sizeCell == 0)
 			return false;
-		X /= sizeCell;
-		Y /= sizeCell;
-		X = sizeX - X - 1;
-		Y = sizeY - Y - 1;
-		if (matrix[X + sizeX * Y])
-			return true;
-		return false;
+
+		return getPixel(sizeX - X/sizeCell - 1, sizeY - Y/sizeCell - 1);
 	}
 	byte *matrix;
 public:
@@ -50,11 +45,15 @@ public:
 		matrix = new byte [sizeX * sizeY];
 		for (byte i = 0; i < sizeX * sizeY; i++)
 			matrix[i] = false;
-		matrix[0] = true;
-		matrix[1] = false;
-		matrix[2] = false;
-		matrix[3] = true;
-		matrix[4] = true;
+	}
+
+	bool getPixel(uint8_t x, uint8_t y)
+	{
+		return matrix[x + sizeX * y];
+	}
+	void setPixel(uint8_t x, uint8_t y, bool color)
+	{
+		matrix[x + sizeX * y] = color;
 	}
 };
 
