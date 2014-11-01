@@ -1,8 +1,7 @@
 #ifndef tetris_h
 #define tetris_h
 
-#include "Nokia5110.h"
-#include "Arduino.h"
+#include "nokia5110.h"
 
 class TTetris : public TNokia5110
 {

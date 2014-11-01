@@ -1,3 +1,4 @@
+#include "nokia5110.h"
 #include "tetris.h"
 
 TTetris tetris(4, 5, 6, 7, 8, 2);

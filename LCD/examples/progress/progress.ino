@@ -1,4 +1,4 @@
-#include "Nokia5110.h"
+#include "nokia5110.h"
 
 class TProgress : public TNokia5110
 {

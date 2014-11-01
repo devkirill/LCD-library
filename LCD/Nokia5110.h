@@ -1,7 +1,7 @@
 #ifndef nokia5110_h
 #define nokia5110_h
 
-#include "Display.h"
+#include "display.h"
 #include "arduino.h"
 
 // Datasheet:
