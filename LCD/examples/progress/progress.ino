@@ -37,4 +37,3 @@ void loop()
 	progress.repaint();
 	progress.progress++;
 }
-

@@ -44,6 +44,7 @@ bool TTetris::getPixel(uint8_t x, uint8_t y)
 {
 	return matrix[x + sizeX * y];
 }
+
 void TTetris::setPixel(uint8_t x, uint8_t y, bool color)
 {
 	matrix[x + sizeX * y] = color;
